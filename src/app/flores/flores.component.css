@@ -1,0 +1,16 @@
+.custom-card {
+    margin: 20px;
+  }
+  
+  .add-button {
+    background-color: #F5C518;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .table-responsive {
+    margin-top: 20px;
+  }
+  

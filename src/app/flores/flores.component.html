@@ -1,0 +1,50 @@
+<div class="card" *ngIf="!role()">
+    <div class="card-header">
+      <h2 class="header-title">Flores</h2>
+      <button (click)="addFlor()" class="add-button">
+        Añadir Producto
+      </button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID Producto</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+              <th>Stock</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let producto of productos">
+              <td>{{producto.id_producto}}</td>
+              <td>{{producto.nombre}}</td>
+              <td>{{producto.descripcion}}</td>
+              <td>{{producto.precio}}</td>
+              <td>{{producto.stock}}</td>
+              <td>
+                <button mat-icon-button (click)="editFlor(producto)">
+                  <mat-icon style="color: black; background-color: #F5C518;">mode_edit</mat-icon>
+                </button>
+                <button mat-icon-button (click)="deleteFlor(producto)">
+                  <mat-icon style="color: black; background-color: #F5C518;">delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="card-footer">
+      <button class="btn btn-primary" (click)="goBack()">Volver a la página principal</button>
+    </div> -->
+  </div>
+  <div *ngIf="role()">
+    <h2>Productos</h2>
+    <div *ngFor="let producto of productos">
+      <producto-card [routerLink]="['/flores', producto.id_producto]" [producto]="producto"></producto-card>
+    </div>
+  </div>

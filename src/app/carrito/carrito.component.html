@@ -1,0 +1,11 @@
+<ul>
+  <li *ngFor="let item of carrito">
+    <h3>hola</h3>
+    <p>{{item.producto.nombre}}</p>
+    <p>{{item.producto.precio}} €</p>
+    <p>Cantidad: {{ item.numProductos }}</p>
+    <button mat-raised-button color="primary" (click)="plus(item)">+</button>
+    <button mat-raised-button color="primary" (click)="subtract(item)">-</button>
+  </li>
+</ul>
+<button mat-raised-button color="primary" (click)="realizarPedido()">Realizar Pedido</button>

@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="card-header">
+    <h2 class="header-title">Usuarios</h2>
+    <button (click)="addUsuario()" class="add-button">
+      Añadir Usuario
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID Usuario</th>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{usuario.id}}</td>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.firstname}}</td>
+            <td>{{usuario.role}}</td>
+            <td>
+              <button mat-icon-button (click)="editUsuario(usuario)">
+                <mat-icon style="color: black; background-color: #F5C518;">mode_edit</mat-icon>
+              </button>
+              <button mat-icon-button (click)="deleteUsuario(usuario)">
+                <mat-icon style="color: black; background-color: #F5C518;">delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- <div class="card-footer">
+    <button class="btn btn-primary" (click)="goBack()">Volver a la página principal</button>
+  </div> -->
+</div>

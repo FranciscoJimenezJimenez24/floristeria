@@ -1,0 +1,31 @@
+<div class="card">
+    <div class="card-header">
+      <h2 class="header-title">Pedidos</h2>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID Pedido</th>
+              <th>ID Cliente</th>
+              <th>Total</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of pedidos">
+              <td>{{pedido.id_pedido}}</td>
+              <td>{{pedido.id_cliente}}</td>
+              <td>{{pedido.total}}</td>
+              <td>{{pedido.fecha}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- <div class="card-footer">
+      <button class="btn btn-primary" (click)="goBack()">Volver a la página principal</button>
+    </div> -->
+  </div>
+  

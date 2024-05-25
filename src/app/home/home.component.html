@@ -1,0 +1,23 @@
+<div *ngIf="user">
+
+    <ul>
+        <li (click)="irCategoriaFlores()">Flores</li>
+        <li (click)="irCategoriaPlantas()">Plantas</li>
+        <li (click)="irCategoriaRamos()">Ramos</li>
+    </ul>
+    <button (click)="irCarrito()">Carrito</button>
+    <button (click)="logout()">Logout</button>
+</div>
+<div *ngIf="worker">
+    <ul>
+        <li (click)="irCategoriaFlores()">Flores</li>
+        <li (click)="irCategoriaPlantas()">Plantas</li>
+        <li (click)="irCategoriaRamos()">Ramos</li>
+    </ul>
+    <button (click)="logout()">Logout</button>
+</div>
+<div *ngIf="admin">
+    <button (click)="irUsuario()">Usuarios</button>
+    <button (click)="irPedidos()">Pedidos</button>
+    <button (click)="logout()">Logout</button>
+</div>

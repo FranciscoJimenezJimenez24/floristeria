@@ -1,0 +1,49 @@
+<mat-card class="custom-card">
+    <mat-card-header>
+      <mat-card-title>Añadir usuario</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <form [formGroup]="usuarioForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" maxlength="100" required>
+          <mat-error *ngIf="usuarioForm.get('username')?.hasError('required')">El campo username es obligatorio</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Firstname</mat-label>
+          <input matInput formControlName="firstname" maxlength="255" required>
+          <mat-error *ngIf="usuarioForm.get('firstame')?.hasError('required')">El campo firstname es obligatorio</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Lastname</mat-label>
+          <input matInput formControlName="lastname" maxlength="255" required>
+          <mat-error *ngIf="usuarioForm.get('lastname')?.hasError('required')">El campo lastname es obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Country</mat-label>
+          <input matInput formControlName="country" maxlength="255" required>
+          <mat-error *ngIf="usuarioForm.get('country')?.hasError('required')">El campo country es obligatorio</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="rol" required>
+              <mat-option value="ADMIN">Administrador</mat-option>
+              <mat-option value="USER">Usuario</mat-option>
+              <mat-option value="WORKER">Trabajador</mat-option>
+            </mat-select>
+            <mat-error *ngIf="usuarioForm.get('rol')?.hasError('required')">Seleccione un Rol</mat-error>
+          </mat-form-field>
+      </form>
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!usuarioForm.valid" (click)="confirmAdd()">Guardar</button>
+      <button mat-button color="primary" (click)="onNoClick()">Cancelar</button>
+    </mat-card-actions>
+  </mat-card>
+  

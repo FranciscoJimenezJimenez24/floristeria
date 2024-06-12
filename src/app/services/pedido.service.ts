@@ -12,7 +12,17 @@ export class PedidoService {
 
   private baseURL = "http://localhost:8080/api/v1/pedido"
 
+  private canProceedToPedido: boolean = false;
+
   constructor(private http: HttpClient) { }
+  
+  setCanProceed(value: boolean) {
+    this.canProceedToPedido = value;
+  }
+
+  getCanProceed(): boolean {
+    return this.canProceedToPedido;
+  }
 
   getPedidos():Observable<Pedido[]>{
     return this.http.get<Pedido[]>(`${this.baseURL}`);

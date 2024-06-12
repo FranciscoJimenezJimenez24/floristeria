@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClienteService } from '../services/cliente.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Usuario } from '../interfaces/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { Cliente } from '../interfaces/cliente';
 import { Router } from '@angular/router';
 import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../interfaces/pedido';
+import { CarritoService } from '../services/carrito.service';
+import { Carrito } from '../interfaces/carrito';
+import { ProductoService } from '../services/producto.service';  // Importa el servicio de productos
 
 @Component({
   selector: 'app-clientes',
@@ -18,9 +20,24 @@ export class ClientesComponent {
 
   clienteForm!: FormGroup;
 
-  constructor(private clienteService: ClienteService,public snackBar: MatSnackBar,private userService:UsuarioService, private router: Router, private pedidoService:PedidoService){}
-  
+  constructor(
+    private clienteService: ClienteService,
+    public snackBar: MatSnackBar,
+    private userService: UsuarioService, 
+    private router: Router, 
+    private pedidoService: PedidoService,
+    private carritoService: CarritoService,
+    private productoService: ProductoService  // Añade el servicio de productos al constructor
+  ) {}
+
+  rol: string | null = localStorage.getItem("role");
+
+  admin: boolean = false;
+  user: boolean = false;
+  worker: boolean = false;
+
   ngOnInit() {
+    this.roleUsuario();
     this.userService.userLogin
     this.clienteForm = new FormGroup({
       nombre: new FormControl(null, [Validators.required]),
@@ -42,20 +59,96 @@ export class ClientesComponent {
     });
   }
 
+  roleUsuario() {
+    switch (this.rol) {
+      case "ADMIN":
+        this.admin = true;
+        this.user = false;
+        this.worker = false;
+        break;
+      case "USER":
+        this.admin = false;
+        this.user = true;
+        this.worker = false;
+        break;
+      case "WORKER":
+        this.admin = false;
+        this.user = false;
+        this.worker = true;
+        break;
+    }
+  }
+
+  irCarrito() {
+    this.router.navigate(['/carrito']);
+  }
+
+  irCategoriaFlores() {
+    this.router.navigate(['/flores']);
+  }
+
+  irCategoriaPlantas() {
+    this.router.navigate(['/plantas']);
+  }
+
+  irCategoriaRamos() {
+    this.router.navigate(['/ramos']);
+  }
+
+  logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  irUsuario() {
+    this.router.navigate(['/user']);
+  }
+
+  irPedidos() {
+    this.router.navigate(['/pedidos']);
+  }
+
+  irHome(){
+    this.router.navigate(['/']);
+  }
+
   async confirmAdd() {
     if (this.clienteForm.valid) {
       const nuevoCliente = this.clienteForm.value as Cliente;
       const response = await this.clienteService.createCliente(nuevoCliente).toPromise();
       if (response) {
-        const pedido:Pedido = {
-          id_pedido:0,
-          id_cliente:nuevoCliente.id_cliente,
-          total:Number(localStorage.getItem("total")),
-          fecha: new Date()
+        const clientes = await this.clienteService.getAllClientes().toPromise() as Cliente[];
+        for (let i = 0; i < clientes.length; i++) {
+          if (clientes[i].user.id == nuevoCliente.user.id) {
+            const pedido: Pedido = {
+              id_pedido: 0,
+              cliente: clientes[i],
+              total: Number(localStorage.getItem("total")),
+              fecha: new Date()
+            };
+            const responsePedido = await this.pedidoService.createPedidos(pedido).toPromise();
+            if (responsePedido) {
+              console.log(pedido);
+
+              const tuCarrito = await this.carritoService.obtenerCarritoUsuario(clientes[i].user.id).toPromise() as Carrito[];
+              for (let j = 0; j < tuCarrito.length; j++) {
+                const item = tuCarrito[j];
+                // Resta el stock del producto
+                const producto = item.producto;
+                producto.stock -= item.numProductos;
+                // Actualiza el producto con el nuevo stock
+                await this.productoService.actualizarProducto(producto.id_producto, producto).toPromise();
+                // Elimina el elemento del carrito
+                await this.carritoService.deleteCarrito(item.id_carrito).toPromise();
+              }
+              localStorage.removeItem("total");
+            }
+            this.snackBar.open("Se realizó el pedido con éxito", 'Cerrar', { duration: 5000 });
+            this.router.navigate(['/']);
+            i = clientes.length;
+          }
         }
-        const responsePedido = await this.pedidoService.createPedidos(pedido).toPromise();
-        this.snackBar.open("Se realizo el pedido con exito", 'Cerrar', { duration: 5000 });
-        this.router.navigate(['/']);
       } else {
         this.snackBar.open("Error al realizar el pedido", 'Cerrar', { duration: 5000 });
       }
@@ -64,7 +157,7 @@ export class ClientesComponent {
     }
   }
 
-  cancelar(){
+  cancelar() {
     this.router.navigate([`/carrito`])
   }
 }

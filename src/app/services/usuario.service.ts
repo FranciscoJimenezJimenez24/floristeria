@@ -37,6 +37,7 @@ export class UsuarioService {
 
   updateUser(userRequest:Usuario):Observable<any>
   {
+    console.log(userRequest);
     return this.httpClient.put(environment.urlApi+"/user", userRequest).pipe(
       catchError(this.handleError)
     )

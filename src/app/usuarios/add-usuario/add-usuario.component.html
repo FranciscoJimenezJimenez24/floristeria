@@ -10,6 +10,12 @@
           <input matInput formControlName="username" maxlength="100" required>
           <mat-error *ngIf="usuarioForm.get('username')?.hasError('required')">El campo username es obligatorio</mat-error>
         </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" maxlength="255" required>
+          <mat-error *ngIf="usuarioForm.get('password')?.hasError('required')">El campo password es obligatorio</mat-error>
+        </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Firstname</mat-label>
@@ -31,12 +37,12 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Rol</mat-label>
-            <mat-select formControlName="rol" required>
+            <mat-select formControlName="role" required>
               <mat-option value="ADMIN">Administrador</mat-option>
               <mat-option value="USER">Usuario</mat-option>
               <mat-option value="WORKER">Trabajador</mat-option>
             </mat-select>
-            <mat-error *ngIf="usuarioForm.get('rol')?.hasError('required')">Seleccione un Rol</mat-error>
+            <mat-error *ngIf="usuarioForm.get('role')?.hasError('required')">Seleccione un Rol</mat-error>
           </mat-form-field>
       </form>
     </mat-card-content>

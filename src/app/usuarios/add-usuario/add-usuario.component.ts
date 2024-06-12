@@ -22,10 +22,11 @@ export class AddUsuarioComponent {
     this.usuarioForm = new FormGroup({
       id: new FormControl(0),
       username: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required]),
       firstname: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
       country: new FormControl(null, [Validators.required]),
-      rol: new FormControl(null, [Validators.required]),
+      role: new FormControl(null, [Validators.required]),
     });
 
   }

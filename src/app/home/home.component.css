@@ -1,0 +1,166 @@
+body {
+  background-color: #4caf50; /* Verde */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: #4caf50;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #b0b0b0; /* Gris */
+  color: white;
+  padding: 1rem;
+}
+
+.logo {
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 30px; /* Logo más pequeño */
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+}
+
+.nav-list li {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.carusel {
+  width: 100%;
+  object-fit: cover;
+}
+
+.title-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad */
+  color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.title-container.visible {
+  opacity: 1;
+}
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 1200px;
+}
+
+.welcome-img {
+  width: 50%;
+  height: auto;
+}
+
+.welcome-text {
+  padding: 1rem;
+}
+
+.footer {
+  width: 100%;
+  background-color: #b0b0b0; /* Gris */
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-buttons {
+    margin-top: 1rem;
+  }
+
+  .welcome-section {
+    flex-direction: column;
+  }
+
+  .welcome-img {
+    width: 100%;
+  }
+
+  .welcome-text {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.fotos-container {
+  width: 100%;
+}
+
+.foto-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navigation-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.navigation-button:hover {
+  color: lightgray;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.username {
+  color: black;
+}

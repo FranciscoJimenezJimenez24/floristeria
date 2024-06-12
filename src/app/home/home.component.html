@@ -1,23 +1,57 @@
-<div *ngIf="user">
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo">
+        <img src="../../assets/_a9e03805-694a-4ee7-8f17-b7830a16b07d.jpeg" alt="Logo" class="logo-img" (click)="irHome()">
+      </div>
+      <ul class="nav-list">
+        <li *ngIf="user || worker" (click)="irCategoriaFlores()">Flores</li>
+        <li *ngIf="user || worker" (click)="irCategoriaPlantas()">Plantas</li>
+        <li *ngIf="user || worker" (click)="irCategoriaRamos()">Ramos</li>
+        <li *ngIf="admin" (click)="irUsuario()">Usuarios</li>
+        <li *ngIf="admin" (click)="irPedidos()">Pedidos</li>
+      </ul>
+      <div class="nav-buttons">
+        <div class="nav-user">
+          <mat-icon style="color: black;">group</mat-icon> 
+          <span class="username">{{ firstname }}</span>
+        </div>
+        <button *ngIf="user" mat-button (click)="irCarrito()">
+          <mat-icon>shopping_cart</mat-icon>
+          Carrito
+        </button>
+        <button *ngIf="user || worker || admin" mat-button (click)="logout()">Logout</button>
+      </div>
+    </nav>
 
-    <ul>
-        <li (click)="irCategoriaFlores()">Flores</li>
-        <li (click)="irCategoriaPlantas()">Plantas</li>
-        <li (click)="irCategoriaRamos()">Ramos</li>
-    </ul>
-    <button (click)="irCarrito()">Carrito</button>
-    <button (click)="logout()">Logout</button>
-</div>
-<div *ngIf="worker">
-    <ul>
-        <li (click)="irCategoriaFlores()">Flores</li>
-        <li (click)="irCategoriaPlantas()">Plantas</li>
-        <li (click)="irCategoriaRamos()">Ramos</li>
-    </ul>
-    <button (click)="logout()">Logout</button>
-</div>
-<div *ngIf="admin">
-    <button (click)="irUsuario()">Usuarios</button>
-    <button (click)="irPedidos()">Pedidos</button>
-    <button (click)="logout()">Logout</button>
-</div>
+    <div class="fotos-container">
+      <div class="foto-controls">
+        <button (click)="changeFoto(-1)" class="navigation-button">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <div class="image-wrapper">
+          <img class="carusel" [src]="'assets/' + fotos[indiceFotos]" height="360">
+          <div class="title-container" [ngClass]="{'visible': titleVisible}">
+            <h1>FloriPaco</h1>
+          </div>
+        </div>
+        <button (click)="changeFoto(1)" class="navigation-button">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="welcome-section">
+      <img src="../../assets/_a9e03805-694a-4ee7-8f17-b7830a16b07d.jpeg" alt="Welcome" class="welcome-img">
+      <div class="welcome-text">
+        <h2>Bienvenidos a FloriPaco</h2>
+        <p>Descubre las flores más frescas y hermosas para cualquier ocasión.</p>
+        <button mat-button (click)="navigateToLocation()">Visítanos</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2024 FloriPaco. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+</body>

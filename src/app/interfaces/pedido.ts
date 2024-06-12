@@ -1,6 +1,8 @@
+import { Cliente } from "./cliente";
+
 export interface Pedido {
     id_pedido:number,
-    id_cliente:number,
+    cliente:Cliente,
     total:number,
     fecha:Date,
 }

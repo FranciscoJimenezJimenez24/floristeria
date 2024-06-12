@@ -1,22 +1,57 @@
-<div *ngIf="producto" class="product-card">
-    <mat-card class="custom-card">
-      <mat-card-header>
-        <mat-card-title>Información del producto: {{ producto.nombre }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-        <p><strong>Foto:</strong></p>
-        <img *ngIf="producto.foto" [src]="producto.foto" alt="{{ producto.nombre }}" class="product-image">
-        <p><strong>Precio:</strong> {{ producto.precio }}</p>
-        <div>
-          <p><strong>Cantidad:</strong> {{ cantidad }}</p>
-          <button mat-raised-button color="primary" (click)="plus()">+</button>
-          <button mat-raised-button color="primary" (click)="subtract()">-</button>
+<body>
+  <div class="page-container">
+    <nav class="navbar">
+      <div class="logo">
+        <img src="../../assets/_a9e03805-694a-4ee7-8f17-b7830a16b07d.jpeg" alt="Logo" class="logo-img" (click)="irHome()">
+      </div>
+      <ul class="nav-list">
+        <li *ngIf="user || worker" (click)="irCategoriaFlores()">Flores</li>
+        <li *ngIf="user || worker" (click)="irCategoriaPlantas()">Plantas</li>
+        <li *ngIf="user || worker" (click)="irCategoriaRamos()">Ramos</li>
+        <li *ngIf="admin" (click)="irUsuario()">Usuarios</li>
+        <li *ngIf="admin" (click)="irPedidos()">Pedidos</li>
+      </ul>
+      <div class="nav-buttons">
+        <div class="nav-user">
+          <mat-icon style="color: black;">group</mat-icon> 
+          <span class="username">{{ firstname }}</span>
         </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="accent" (click)="addCarrito()">Añadir al carrito</button>
-      </mat-card-actions>
-    </mat-card>
+        <button *ngIf="user" mat-button (click)="irCarrito()">
+          <mat-icon>shopping_cart</mat-icon>
+          Carrito
+        </button>
+        <button *ngIf="user || worker || admin" mat-button (click)="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="content">
+      <div *ngIf="producto" class="product-card">
+        <mat-card class="custom-card">
+          <mat-card-header>
+            <mat-card-title>Información del producto: {{ producto.nombre }}</mat-card-title>
+          </mat-card-header>
+          <div class="product-details">
+            <img *ngIf="producto.foto" [src]="'assets/'+producto.foto" alt="{{ producto.nombre }}" class="product-image">
+            <div class="product-info">
+              <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+              <p><strong>Precio:</strong> {{ producto.precio }}</p>
+              <p><strong>Stock disponible:</strong> {{ producto.stock }}</p>
+              <div class="quantity-controls">
+                <p><strong>Cantidad:</strong> {{ cantidad }}</p>
+                <button mat-raised-button color="primary" (click)="plus()">+</button>
+                <button mat-raised-button color="primary" (click)="subtract()">-</button>
+              </div>
+              <button mat-raised-button color="accent" (click)="addCarrito()">Añadir al carrito</button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    
+
+    <footer class="footer">
+      <p>&copy; 2024 FloriPaco. Todos los derechos reservados.</p>
+    </footer>
   </div>
-  
+</body>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -18,7 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 import { DeleteFloresComponent } from './flores/delete-flores/delete-flores.component';
 import { EditFloresComponent } from './flores/edit-flores/edit-flores.component';
 import { MaterialModule } from './material/material.module';
@@ -37,7 +36,9 @@ import { ProductoPageComponent } from './productos/page/producto-page/producto-p
 import { AddUsuarioComponent } from './usuarios/add-usuario/add-usuario.component';
 import { EditUsuarioComponent } from './usuarios/edit-usuario/edit-usuario.component';
 import { DeleteUsuarioComponent } from './usuarios/delete-usuario/delete-usuario.component';
-
+import { RegisterComponent } from './register/register.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,9 @@ import { DeleteUsuarioComponent } from './usuarios/delete-usuario/delete-usuario
     ProductoPageComponent,
     AddUsuarioComponent,
     EditUsuarioComponent,
-    DeleteUsuarioComponent
+    DeleteUsuarioComponent,
+    RegisterComponent,
+    NotFoundComponent
   ],
   imports: [
     FloresModule,
@@ -84,7 +87,8 @@ import { DeleteUsuarioComponent } from './usuarios/delete-usuario/delete-usuario
         }
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true },

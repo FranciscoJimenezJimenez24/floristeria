@@ -10,6 +10,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { AddUsuarioComponent } from './add-usuario/add-usuario.component';
 import { EditUsuarioComponent } from './edit-usuario/edit-usuario.component';
 import { DeleteUsuarioComponent } from './delete-usuario/delete-usuario.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -23,15 +24,81 @@ export class UsuariosComponent {
 
   dataSource: MatTableDataSource<Usuario> = new MatTableDataSource();
 
-  usuarios:Usuario[]=[];
+  usuarios: Usuario[] = [];
   permises!: Permises;
   displayedColumns!: string[];
 
-  constructor(private usuarioService:UsuarioService,public dialog: MatDialog,private overlay: Overlay,){}
+  rol: string | null = localStorage.getItem("role");
 
-  ngOnInit(): void{
+  admin: boolean = false;
+  user: boolean = false;
+  worker: boolean = false;
+
+  constructor(
+    private usuarioService: UsuarioService,
+    public dialog: MatDialog,
+    private overlay: Overlay,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    this.roleUsuario();
     this.obtenerUsuarios();
-    this.usuarioService.usuarios = []; 
+    this.usuarioService.usuarios = [];
+  }
+
+  roleUsuario() {
+    switch (this.rol) {
+      case "ADMIN":
+        this.admin = true;
+        this.user = false;
+        this.worker = false;
+        break;
+      case "USER":
+        this.admin = false;
+        this.user = true;
+        this.worker = false;
+        break;
+      case "WORKER":
+        this.admin = false;
+        this.user = false;
+        this.worker = true;
+        break;
+    }
+  }
+
+  irCarrito() {
+    this.router.navigate(['/carrito']);
+  }
+
+  irCategoriaFlores() {
+    this.router.navigate(['/flores']);
+  }
+
+  irCategoriaPlantas() {
+    this.router.navigate(['/plantas']);
+  }
+
+  irCategoriaRamos() {
+    this.router.navigate(['/ramos']);
+  }
+
+  logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  irUsuario() {
+    this.router.navigate(['/user']);
+  }
+
+  irPedidos() {
+    this.router.navigate(['/pedidos']);
+  }
+
+  irHome() {
+    this.router.navigate(['/']);
   }
 
   async obtenerUsuarios() {
@@ -39,10 +106,10 @@ export class UsuariosComponent {
     if (RESPONSE !== undefined) {
       this.displayedColumns = ['id_usuario', 'username', 'firstname', 'rol', 'actions'];
       this.usuarioService.usuarios = RESPONSE as Usuario[];
-      this.usuarios=RESPONSE as Usuario[];
+      this.usuarios = RESPONSE as Usuario[];
       this.dataSource.data = this.usuarioService.usuarios;
       this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;        
+      this.dataSource.paginator = this.paginator;
     }
   }
 
@@ -76,11 +143,10 @@ export class UsuariosComponent {
   async deleteUsuario(usuario: Usuario) {
     const dialogRef = this.dialog.open(DeleteUsuarioComponent, { data: usuario, scrollStrategy: this.overlay.scrollStrategies.noop() });
     const RESP = await dialogRef.afterClosed().toPromise();
-    if (RESP) {
-      if (RESP.ok) {
-        this.dataSource.data = this.usuarioService.usuarios;
-        this.obtenerUsuarios();
-      }
+    if (RESP && RESP.ok) {
+      // Filtrar el usuario eliminado de la lista local
+      this.usuarios = this.usuarios.filter(u => u.id !== RESP.id);
+      this.dataSource.data = this.usuarios;
     }
   }
 }

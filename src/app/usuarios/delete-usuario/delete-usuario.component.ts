@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { CarritoService } from 'src/app/services/carrito.service';
 
 @Component({
   selector: 'app-delete-usuario',
@@ -10,9 +11,11 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./delete-usuario.component.css']
 })
 export class DeleteUsuarioComponent {
-  constructor(public dialogRef: MatDialogRef<DeleteUsuarioComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<DeleteUsuarioComponent>,
     @Inject(MAT_DIALOG_DATA) public usuario: Usuario,
     private usuarioService: UsuarioService,
+    private carritoService: CarritoService, // Asegúrate de importar y proporcionar este servicio
     private snackBar: MatSnackBar
   ) { }
 
@@ -20,19 +23,24 @@ export class DeleteUsuarioComponent {
   }
 
   async confirmDelete() {
-    const RESPONSE = await this.usuarioService.deleteUser(this.usuario.id).toPromise();
+    try {
+      // Eliminar todos los carritos asociados al usuario
+      const carritos = await this.carritoService.obtenerCarritoUsuario(this.usuario.id).toPromise();
+      for (const carrito of carritos!) {
+        await this.carritoService.deleteCarrito(carrito.id_carrito).toPromise();
+      }
 
-    if (RESPONSE !==null) { // Comprueba si RESPONSE y RESPONSE.message son definidos
+      // Eliminar el usuario
+      await this.usuarioService.deleteUser(this.usuario.id).toPromise();
       this.snackBar.open("Se borró el usuario", 'Cerrar', { duration: 5000 });
-      this.dialogRef.close({ ok: RESPONSE, data: RESPONSE });
-    } else {
-      // Maneja el caso donde RESPONSE o RESPONSE.message son undefined
-      // Por ejemplo, muestra un mensaje de error o realiza alguna acción adecuada
-      this.snackBar.open(RESPONSE, 'Cerrar', { duration: 5000 });
+      this.dialogRef.close({ ok: true, id: this.usuario.id });
+    } catch (error) {
+      this.snackBar.open("Error al borrar el usuario", 'Cerrar', { duration: 5000 });
+      this.dialogRef.close({ ok: false });
     }
   }
 
   onNoClick() {
-    this.dialogRef.close({ok: false});
+    this.dialogRef.close({ ok: false });
   }
 }

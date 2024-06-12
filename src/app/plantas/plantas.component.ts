@@ -10,6 +10,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { AddPlantasComponent } from './add-plantas/add-plantas.component';
 import { EditPlantasComponent } from './edit-plantas/edit-plantas.component';
 import { DeletePlantasComponent } from './delete-plantas/delete-plantas.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-plantas',
@@ -25,17 +26,77 @@ export class PlantasComponent {
   productos:Producto[]=[];
   permises!: Permises;
   displayedColumns!: string[];
-  rol:string | null= localStorage.getItem("role");
 
-  constructor(private productoService:ProductoService,public dialog: MatDialog,private overlay: Overlay,){}
+  rol:string | null= localStorage.getItem("role");
+  firstname: string | null= localStorage.getItem("firstname");
+
+  admin: boolean = false;
+  user: boolean = false;
+  worker: boolean = false;
+
+  constructor(private productoService:ProductoService,public dialog: MatDialog,private overlay: Overlay,private router:Router){}
 
   ngOnInit(): void{
+    this.roleUsuario();
     this.obtenerPlantas();
     this.productoService.productos = []; 
   }
 
   role(): boolean {
     return this.rol === "USER";
+  }
+
+  roleUsuario() {
+    switch (this.rol) {
+      case "ADMIN":
+        this.admin = true;
+        this.user = false;
+        this.worker = false;
+        break;
+      case "USER":
+        this.admin = false;
+        this.user = true;
+        this.worker = false;
+        break;
+      case "WORKER":
+        this.admin = false;
+        this.user = false;
+        this.worker = true;
+        break;
+    }
+  }
+  irCarrito() {
+    this.router.navigate(['/carrito']);
+  }
+
+  irCategoriaFlores() {
+    this.router.navigate(['/flores']);
+  }
+
+  irCategoriaPlantas() {
+    this.router.navigate(['/plantas']);
+  }
+
+  irCategoriaRamos() {
+    this.router.navigate(['/ramos']);
+  }
+
+  logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  irUsuario() {
+    this.router.navigate(['/user']);
+  }
+
+  irPedidos() {
+    this.router.navigate(['/pedidos']);
+  }
+
+  irHome(){
+    this.router.navigate(['/']);
   }
 
   async obtenerPlantas() {

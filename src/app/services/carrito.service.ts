@@ -32,5 +32,9 @@ export class CarritoService {
     return this.httpClient.put<Carrito>(`${this.baseURL}/${id_carrito}`, carro);
   }
 
+  deleteCarrito(id_carrito:number):Observable<void>{
+    return this.httpClient.delete<void>(`${this.baseURL}/${id_carrito}`)
+  }
+
   
 }

@@ -1,6 +1,55 @@
 .product-card {
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  width: 100%;
+  max-width: 300px; /* Tamaño máximo para pantallas más grandes */
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.mat-card-image {
+  width: 100%; /* La imagen ocupa todo el ancho de la tarjeta */
+  height: auto; /* Mantiene la proporción */
+  max-height: 200px; /* Tamaño máximo de la imagen */
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.mat-card-header {
+  text-align: center;
+}
+
+.mat-card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  font-size: 1.2rem;
+  color: #4caf50; /* Verde */
+}
+
+.mat-card-content {
+  text-align: justify;
+}
+
+@media (max-width: 600px) {
+  .product-card {
+    max-width: 100%; /* Ocupa el ancho completo en pantallas pequeñas */
+    margin: 5px;
   }
   
+  .mat-card-title {
+    font-size: 1.2rem;
+  }
+  
+  .mat-card-subtitle {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,39 @@
+.login-form {
+    max-width: 400px;
+    margin: auto;
+    padding: 2rem;
+    background: #4caf50;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+  
+  .btn-login {
+    background-color: #4caf50; /* Green color */
+    color: white;
+  }
+  
+  .btn-register {
+    background-color: #8bc34a; /* Lighter green color */
+    color: white;
+  }
+  
+  .btn-login:hover, .btn-register:hover {
+    opacity: 0.9;
+  }
+  

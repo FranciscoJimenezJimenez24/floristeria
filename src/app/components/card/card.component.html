@@ -1,6 +1,8 @@
 <mat-card class="product-card">
+  <img mat-card-image [src]="'assets/' +producto.foto" alt="{{ producto.nombre }}">
   <mat-card-header>
     <mat-card-title>{{ producto.nombre }}</mat-card-title>
+    <mat-card-subtitle>${{ producto.precio }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>{{ producto.descripcion }}</p>

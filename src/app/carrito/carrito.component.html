@@ -1,11 +1,46 @@
-<ul>
-  <li *ngFor="let item of carrito">
-    <h3>hola</h3>
-    <p>{{item.producto.nombre}}</p>
-    <p>{{item.producto.precio}} €</p>
-    <p>Cantidad: {{ item.numProductos }}</p>
-    <button mat-raised-button color="primary" (click)="plus(item)">+</button>
-    <button mat-raised-button color="primary" (click)="subtract(item)">-</button>
-  </li>
-</ul>
-<button mat-raised-button color="primary" (click)="realizarPedido()">Realizar Pedido</button>
+<body>
+  <div class="container">
+    <nav class="navbar">
+      <div class="logo">
+        <img src="../../assets/_a9e03805-694a-4ee7-8f17-b7830a16b07d.jpeg" alt="Logo" class="logo-img" (click)="irHome()">
+      </div>
+      <ul class="nav-list">
+        <li *ngIf="user || worker" (click)="irCategoriaFlores()">Flores</li>
+        <li *ngIf="user || worker" (click)="irCategoriaPlantas()">Plantas</li>
+        <li *ngIf="user || worker" (click)="irCategoriaRamos()">Ramos</li>
+        <li *ngIf="admin" (click)="irUsuario()">Usuarios</li>
+        <li *ngIf="admin" (click)="irPedidos()">Pedidos</li>
+      </ul>
+      <div class="nav-buttons">
+        <button *ngIf="user" mat-button (click)="irCarrito()">
+          <mat-icon>shopping_cart</mat-icon>
+          Carrito
+        </button>
+        <button *ngIf="user || worker || admin" mat-button (click)="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <div class="content-container">
+      <div class="container">
+        <ul class="carrito-list">
+          <li *ngFor="let item of carrito" class="carrito-item">
+            <div class="item-info">
+              <p class="item-name">{{item.producto.nombre}}</p>
+              <p class="item-price">{{item.producto.precio}} €</p>
+              <p class="item-quantity">Cantidad: {{ item.numProductos }}</p>
+            </div>
+            <div class="item-controls">
+              <button mat-raised-button color="primary" (click)="plus(item)">+</button>
+              <button mat-raised-button color="primary" (click)="subtract(item)">-</button>
+            </div>
+          </li>
+        </ul>
+        <button mat-raised-button color="primary" class="realizar-pedido" (click)="realizarPedido()">Realizar Pedido</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2024 FloriPaco. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+</body>

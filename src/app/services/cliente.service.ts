@@ -15,4 +15,8 @@ export class ClienteService {
   createCliente(nuevoCliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(`${this.baseURL}`, nuevoCliente);
   }
+
+  getAllClientes():Observable<Cliente[]>{
+    return this.http.get<Cliente[]>(`${this.baseURL}`);
+  }
 }

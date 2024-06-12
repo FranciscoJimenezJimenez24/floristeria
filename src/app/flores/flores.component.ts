@@ -10,6 +10,7 @@ import { AddFloresComponent } from './add-flores/add-flores.component';
 import { EditFloresComponent } from './edit-flores/edit-flores.component';
 import { DeleteFloresComponent } from './delete-flores/delete-flores.component';
 import { Permises } from '../interfaces/api-response';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-flores',
@@ -27,16 +28,76 @@ export class FloresComponent {
   permises!: Permises;
   displayedColumns!: string[];
   rol:string | null= localStorage.getItem("role");
+  firstname: string | null= localStorage.getItem("firstname");
 
-  constructor(private productoService:ProductoService,public dialog: MatDialog,private overlay: Overlay,){}
+  admin: boolean = false;
+  user: boolean = false;
+  worker: boolean = false;
+
+  constructor(private productoService:ProductoService,public dialog: MatDialog,private overlay: Overlay,private router: Router){}
 
   ngOnInit(): void{
+    this.roleUsuario();
     this.obtenerFlores();
     this.productoService.productos = []; 
   }
 
+  
   role(): boolean {
     return this.rol === "USER";
+  }
+  
+  roleUsuario() {
+    switch (this.rol) {
+      case "ADMIN":
+        this.admin = true;
+        this.user = false;
+        this.worker = false;
+        break;
+      case "USER":
+        this.admin = false;
+        this.user = true;
+        this.worker = false;
+        break;
+      case "WORKER":
+        this.admin = false;
+        this.user = false;
+        this.worker = true;
+        break;
+    }
+  }
+  irCarrito() {
+    this.router.navigate(['/carrito']);
+  }
+
+  irCategoriaFlores() {
+    this.router.navigate(['/flores']);
+  }
+
+  irCategoriaPlantas() {
+    this.router.navigate(['/plantas']);
+  }
+
+  irCategoriaRamos() {
+    this.router.navigate(['/ramos']);
+  }
+
+  logout() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  irUsuario() {
+    this.router.navigate(['/user']);
+  }
+
+  irPedidos() {
+    this.router.navigate(['/pedidos']);
+  }
+
+  irHome(){
+    this.router.navigate(['/']);
   }
 
   async obtenerFlores() {

@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environments';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Producto } from '../interfaces/producto';
 import { Observable } from 'rxjs';
@@ -41,5 +42,15 @@ export class ProductoService {
 
   obtenerProductosPorCategoria(id_categoria: number): Observable<Producto[]> {
     return this.httpClient.get<Producto[]>(`${this.baseURL}/categoria/${id_categoria}`);
+  }
+
+  uploadFile(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post(`http://localhost:8080/api/v1/producto/upload`, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
   }
 }

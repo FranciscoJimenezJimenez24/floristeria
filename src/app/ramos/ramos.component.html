@@ -1,4 +1,29 @@
-<div class="card" *ngIf="!role()">
+<div class="container">
+  <nav class="navbar">
+    <div class="logo">
+      <img src="../../assets/_a9e03805-694a-4ee7-8f17-b7830a16b07d.jpeg" alt="Logo" class="logo-img" (click)="irHome()">
+    </div>
+    <ul class="nav-list">
+      <li *ngIf="user || worker" (click)="irCategoriaFlores()">Flores</li>
+      <li *ngIf="user || worker" (click)="irCategoriaPlantas()">Plantas</li>
+      <li *ngIf="user || worker" (click)="irCategoriaRamos()">Ramos</li>
+      <li *ngIf="admin" (click)="irUsuario()">Usuarios</li>
+      <li *ngIf="admin" (click)="irPedidos()">Pedidos</li>
+    </ul>
+    <div class="nav-buttons">
+      <div class="nav-user">
+        <mat-icon style="color: black;">group</mat-icon> 
+        <span class="username">{{ firstname }}</span>
+      </div>
+      <button *ngIf="user" mat-button (click)="irCarrito()">
+        <mat-icon>shopping_cart</mat-icon>
+        Carrito
+      </button>
+      <button *ngIf="user || worker || admin" mat-button (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="card" *ngIf="!role()">
     <div class="card-header">
       <h2 class="header-title">Ramos</h2>
       <button (click)="addRamo()" class="add-button">
@@ -27,10 +52,10 @@
               <td>{{producto.stock}}</td>
               <td>
                 <button mat-icon-button (click)="editRamo(producto)">
-                  <mat-icon style="color: black; background-color: #F5C518;">mode_edit</mat-icon>
+                  <mat-icon class="action-icon">mode_edit</mat-icon>
                 </button>
                 <button mat-icon-button (click)="deleteRamo(producto)">
-                  <mat-icon style="color: black; background-color: #F5C518;">delete</mat-icon>
+                  <mat-icon class="action-icon">delete</mat-icon>
                 </button>
               </td>
             </tr>
@@ -38,13 +63,15 @@
         </table>
       </div>
     </div>
-    <!-- <div class="card-footer">
-      <button class="btn btn-primary" (click)="goBack()">Volver a la página principal</button>
-    </div> -->
   </div>
-  <div *ngIf="role()">
-    <h2>Productos</h2>
-    <div *ngFor="let producto of productos">
-      <producto-card [routerLink]="['/ramos', producto.id_producto]" [producto]="producto"></producto-card>
+
+  <div class="container" *ngIf="role()">
+    <div class="product-cards">
+      <producto-card *ngFor="let producto of productos" [routerLink]="['/ramos', producto.id_producto]" [producto]="producto"></producto-card>
     </div>
   </div>
+
+  <footer class="footer">
+    <p>&copy; 2024 FloriPaco. Todos los derechos reservados.</p>
+  </footer>
+</div>

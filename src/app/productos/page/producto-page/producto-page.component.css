@@ -59,13 +59,12 @@ body {
 }
 
 .navbar {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
   background-color: #b0b0b0; /* Gris */
   color: white;
+  padding: 1rem;
 }
 
 .logo {

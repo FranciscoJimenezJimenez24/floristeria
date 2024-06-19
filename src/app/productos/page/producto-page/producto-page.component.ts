@@ -52,13 +52,21 @@ export class ProductoPageComponent implements OnInit {
             return of(null); // Return an observable that emits null
           }
           this.producto = producto;
-          return this.productoService.obtenerProductosPorCategoria(producto.id_categoria);
+          if (producto.id_categoria) {
+            return this.productoService.obtenerProductosPorCategoria(producto.id_categoria);
+          } else {
+            // this.snackBar.open("No se pudo obtener la categoría del producto.", 'Cerrar', { duration: 5000 });
+            return of([]);
+          }
         })
       )
       .subscribe(productosRelacionados => {
         if (productosRelacionados) {
           this.productosRelacionados = productosRelacionados;
         }
+      }, error => {
+        this.snackBar.open("Error al cargar los productos relacionados.", 'Cerrar', { duration: 5000 });
+        console.error("Error al cargar los productos relacionados:", error);
       });
   }
 

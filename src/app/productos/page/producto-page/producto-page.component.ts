@@ -102,17 +102,17 @@ export class ProductoPageComponent implements OnInit {
         carrito.user.id === Number(this.id_usuario)
       );
 
-      if (item) {
-        this.carritoService.deleteCarrito(item.id_carrito).subscribe(
-          () => {
-            this.snackBar.open('El producto ha sido eliminado del carrito.', 'Cerrar', { duration: 5000 });
-            this.cantidad = 0;
-          },
-          error => {
-            this.snackBar.open('Error al eliminar el producto del carrito.', 'Cerrar', { duration: 5000 });
-          }
-        );
-      }
+      // if (item) {
+      //   this.carritoService.deleteCarrito(item.id_carrito).subscribe(
+      //     () => {
+      //       // this.snackBar.open('El producto ha sido eliminado del carrito.', 'Cerrar', { duration: 5000 });
+      //       this.cantidad = 0;
+      //     },
+      //     error => {
+      //       this.snackBar.open('Error al eliminar el producto del carrito.', 'Cerrar', { duration: 5000 });
+      //     }
+      //   );
+      // }
     });
   }
 

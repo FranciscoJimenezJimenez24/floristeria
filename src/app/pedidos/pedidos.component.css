@@ -137,4 +137,12 @@ body {
     padding: 1rem 0;
     margin-top: auto;
   }
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
   
+  .username {
+    color: black;
+  }

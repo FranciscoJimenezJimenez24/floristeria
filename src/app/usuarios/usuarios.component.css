@@ -138,3 +138,12 @@ body {
     margin-top: auto;
   }
   
+  .nav-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .username {
+    color: black;
+  }

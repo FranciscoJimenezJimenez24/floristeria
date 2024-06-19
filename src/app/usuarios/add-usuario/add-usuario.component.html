@@ -20,7 +20,10 @@
         <mat-form-field appearance="fill">
           <mat-label>Firstname</mat-label>
           <input matInput formControlName="firstname" maxlength="255" required>
-          <mat-error *ngIf="usuarioForm.get('firstame')?.hasError('required')">El campo firstname es obligatorio</mat-error>
+          <mat-error *ngIf="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched">
+            <ng-container *ngIf="usuarioForm.get('username')?.errors?.['required']">El nombre de usuario es requerido</ng-container>
+            <ng-container *ngIf="usuarioForm.get('username')?.errors?.['invalidEmailDomain']">El nombre de usuario debe terminar en @gmail.com</ng-container>
+          </mat-error>
         </mat-form-field>
   
         <mat-form-field appearance="fill">

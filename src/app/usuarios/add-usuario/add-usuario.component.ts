@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/interfaces/usuario';
@@ -21,7 +21,7 @@ export class AddUsuarioComponent {
   ngOnInit() {
     this.usuarioForm = new FormGroup({
       id: new FormControl(0),
-      username: new FormControl(null, [Validators.required]),
+      username: new FormControl(null, [Validators.required,this.usernameValidator]),
       password: new FormControl(null, [Validators.required]),
       firstname: new FormControl(null, [Validators.required]),
       lastname: new FormControl(null, [Validators.required]),
@@ -29,6 +29,14 @@ export class AddUsuarioComponent {
       role: new FormControl(null, [Validators.required]),
     });
 
+  }
+
+  usernameValidator(control: AbstractControl): ValidationErrors | null {
+    const username = control.value;
+    if (username && !username.endsWith('@gmail.com')) {
+      return { invalidEmailDomain: true };
+    }
+    return null;
   }
 
   async confirmAdd() {

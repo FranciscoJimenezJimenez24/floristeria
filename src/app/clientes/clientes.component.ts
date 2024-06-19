@@ -31,6 +31,7 @@ export class ClientesComponent {
   ) {}
 
   rol: string | null = localStorage.getItem("role");
+  firstname: string | null= localStorage.getItem("firstname");
 
   admin: boolean = false;
   user: boolean = false;

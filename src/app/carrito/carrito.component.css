@@ -128,3 +128,13 @@ html, body {
     text-align: center;
   }
 }
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.username {
+  color: black;
+}

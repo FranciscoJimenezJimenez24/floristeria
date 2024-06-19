@@ -41,12 +41,13 @@
                 <button mat-raised-button color="primary" (click)="plus()">+</button>
                 <button mat-raised-button color="primary" (click)="subtract()">-</button>
               </div>
-              <button mat-raised-button color="accent" (click)="addCarrito()">Añadir al carrito</button>
+              <button mat-raised-button color="accent" (click)="addCarrito()" [disabled]="isAddDisabled">Añadir al carrito</button>
             </div>
           </div>
         </mat-card>
       </div>
     </div>
+    
 
     
 

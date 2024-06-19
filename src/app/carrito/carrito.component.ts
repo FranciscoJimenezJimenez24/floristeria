@@ -20,6 +20,7 @@ export class CarritoComponent {
   worker: boolean = false;
 
   rol:string | null= localStorage.getItem("role");
+  firstname: string | null= localStorage.getItem("firstname");
 
   constructor(private carritoService:CarritoService,private router: Router, private pedidoService:PedidoService,private snackBar: MatSnackBar ){}
 

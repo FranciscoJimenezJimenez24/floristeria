@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of, switchMap } from 'rxjs';
@@ -12,18 +12,19 @@ import { ProductoService } from 'src/app/services/producto.service';
   templateUrl: './producto-page.component.html',
   styleUrls: ['./producto-page.component.css']
 })
-export class ProductoPageComponent {
+export class ProductoPageComponent implements OnInit {
   public producto?: Producto;
   carritos: Carrito[] = [];
   id_producto!: number;
   private id_usuario = localStorage.getItem("id");
   cantidad: number = 0;
-  productosRelacionados:Producto[] = [];
+  productosRelacionados: Producto[] = [];
   indice: number = 0;
   totalProductos: number = 0;
+  isAddDisabled: boolean = true; // Añadido
 
   rol: string | null = localStorage.getItem("role");
-  firstname: string | null= localStorage.getItem("firstname");
+  firstname: string | null = localStorage.getItem("firstname");
 
   admin: boolean = false;
   user: boolean = false;
@@ -64,6 +65,7 @@ export class ProductoPageComponent {
   plus() {
     if (this.producto && this.cantidad < this.producto.stock) {
       this.cantidad++;
+      this.isAddDisabled = this.cantidad === 0; // Actualizar el estado del botón
     } else {
       this.snackBar.open("No se puede añadir más del stock disponible.", 'Cerrar', { duration: 3000 });
     }
@@ -72,6 +74,7 @@ export class ProductoPageComponent {
   subtract() {
     if (this.cantidad > 0) {
       this.cantidad--;
+      this.isAddDisabled = this.cantidad === 0; // Actualizar el estado del botón
       if (this.cantidad === 0 && this.id_usuario) {
         this.eliminarItem();
       }
@@ -180,8 +183,6 @@ export class ProductoPageComponent {
       });
     }
   }
-
-  
 
   addCarrito() {
     if (!this.id_usuario) {

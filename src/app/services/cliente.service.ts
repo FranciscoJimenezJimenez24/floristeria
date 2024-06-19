@@ -19,4 +19,6 @@ export class ClienteService {
   getAllClientes():Observable<Cliente[]>{
     return this.http.get<Cliente[]>(`${this.baseURL}`);
   }
+
+  // Id. de Objeto/Aplicación de la administración: c44b4083-3bb0-49c1-b47d-974e53cbdf3c
 }

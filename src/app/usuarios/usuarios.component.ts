@@ -29,6 +29,7 @@ export class UsuariosComponent {
   displayedColumns!: string[];
 
   rol: string | null = localStorage.getItem("role");
+  firstname: string | null= localStorage.getItem("firstname");
 
   admin: boolean = false;
   user: boolean = false;

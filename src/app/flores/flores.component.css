@@ -10,9 +10,9 @@ body {
 
 .container {
   background-color: #4caf50;
-  flex: 1;
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .navbar {
@@ -28,18 +28,8 @@ body {
   flex-shrink: 0;
 }
 
-.nav-user {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.username {
-  color: black;
-}
-
 .logo-img {
-  height: 50px;
+  height: 30px; /* Logo más pequeño */
 }
 
 .nav-list {
@@ -117,24 +107,10 @@ body {
   text-align: left;
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
-  }
-
-  .nav-list {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
-
 .product-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  background-color: #4caf50;
 }
 
 .footer {
@@ -146,29 +122,40 @@ body {
   margin-top: auto;
 }
 
-.table-responsive {
-  overflow-x: auto;
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-buttons {
+    margin-top: 1rem;
+  }
+
+  .welcome-section {
+    flex-direction: column;
+  }
+
+  .welcome-img {
+    width: 100%;
+  }
+
+  .welcome-text {
+    width: 100%;
+    text-align: center;
+  }
+}
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table th, .table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-}
-
-.table th {
-  background-color: #f2f2f2;
-}
-
-button.mat-raised-button {
-  background-color: #e91e63; /* Rosa */
-  color: white;
-}
-
-button.mat-raised-button:hover {
-  background-color: #c2185b; /* Rosa más oscuro al pasar el ratón */
+.username {
+  color: black;
 }

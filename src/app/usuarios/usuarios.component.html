@@ -12,6 +12,10 @@
         <li *ngIf="admin" (click)="irPedidos()">Pedidos</li>
       </ul>
       <div class="nav-buttons">
+        <div class="nav-user">
+          <mat-icon style="color: black;">group</mat-icon> 
+          <span class="username">{{ firstname }}</span>
+        </div>
         <button *ngIf="user" mat-button (click)="irCarrito()">
           <mat-icon>shopping_cart</mat-icon>
           Carrito

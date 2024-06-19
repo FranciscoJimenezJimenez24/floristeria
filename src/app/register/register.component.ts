@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -16,20 +16,28 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private registerService:RegisterService,
+    private registerService: RegisterService,
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required, this.usernameValidator]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       country: ['', [Validators.required]]
     }, { validator: this.checkPasswords });
+  }
+
+  usernameValidator(control: AbstractControl): ValidationErrors | null {
+    const username = control.value;
+    if (username && !username.endsWith('@gmail.com')) {
+      return { invalidEmailDomain: true };
+    }
+    return null;
   }
 
   checkPasswords(group: FormGroup): { [key: string]: boolean } | null {
@@ -60,4 +68,3 @@ export class RegisterComponent implements OnInit {
     }
   }
 }
-

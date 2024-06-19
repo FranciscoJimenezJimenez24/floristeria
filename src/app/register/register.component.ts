@@ -67,4 +67,8 @@ export class RegisterComponent implements OnInit {
       this.snackBar.open('Por favor complete el formulario correctamente', 'Cerrar', { duration: 5000 });
     }
   }
+
+  onCancel(): void {
+    this.router.navigate(['/login']);
+  }
 }

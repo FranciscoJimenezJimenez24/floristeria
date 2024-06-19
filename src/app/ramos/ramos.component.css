@@ -108,9 +108,12 @@ body {
 }
 
 .product-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 30px; /* Aumenta el espacio entre las tarjetas */
+  width: 100%; /* Ajusta el ancho al 100% */
+  max-width: 1200px; /* Limita el ancho máximo */
+  margin: 0 auto; /* Centra el grid */
 }
 
 .footer {
@@ -120,6 +123,18 @@ body {
   text-align: center;
   padding: 1rem 0;
   margin-top: auto;
+}
+
+@media (max-width: 1200px) {
+  .product-cards {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas para pantallas medianas */
+  }
+}
+
+@media (max-width: 900px) {
+  .product-cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas para pantallas pequeñas */
+  }
 }
 
 @media (max-width: 600px) {
@@ -149,7 +164,12 @@ body {
     width: 100%;
     text-align: center;
   }
+
+  .product-cards {
+    grid-template-columns: 1fr; /* 1 columna para pantallas muy pequeñas */
+  }
 }
+
 .nav-user {
   display: flex;
   align-items: center;

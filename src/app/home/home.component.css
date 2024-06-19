@@ -73,6 +73,11 @@ body {
   border-radius: 0.5rem;
 }
 
+.title-container h1 {
+  font-size: 2.5rem; /* Tamaño del título */
+  font-style: italic; /* Título en cursiva */
+}
+
 .title-container.visible {
   opacity: 1;
 }

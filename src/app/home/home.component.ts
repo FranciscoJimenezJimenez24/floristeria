@@ -92,6 +92,6 @@ export class HomeComponent {
   }
 
   navigateToLocation(): void {
-    window.open('https://www.google.com/maps/place/IES+Playamar/@36.6342968,-4.4999695,17z/data=!3m2!4b1!5s0xd72fbc1b9bc1aad:0xa39a217701fd01ca!4m6!3m5!1s0xd72fb7631731123:0x6b7c81f710da094b!8m2!3d36.6342925!4d-4.4973946!16s%2Fg%2F11sgj3_h36?entry=ttu', '_blank');
+    window.open('https://www.google.com/maps/place/Carrefour/@36.6122423,-4.5153955,17z/data=!3m2!4b1!5s0xd72e3326e3f1299:0x50e90986d195f6f8!4m6!3m5!1s0xd72fb9bffffffff:0x791e7dcf24f85431!8m2!3d36.612238!4d-4.5128206!16s%2Fg%2F1tf25fgb?entry=ttu');
   }
 }
